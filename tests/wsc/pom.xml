@@ -23,12 +23,12 @@
             <classifier>mule-plugin</classifier>
             <scope>provided</scope>
         </dependency>
-        <dependency>
-            <groupId>org.mule.runtime</groupId>
-            <artifactId>mule-module-xml</artifactId>
-            <version>${project.version}</version>
-            <scope>provided</scope>
-        </dependency>
+<!--         <dependency> -->
+<!--             <groupId>org.mule.runtime</groupId> -->
+<!--             <artifactId>mule-module-xml</artifactId> -->
+<!--             <version>${project.version}</version> -->
+<!--             <scope>provided</scope> -->
+<!--         </dependency> -->
         <dependency>
             <groupId>org.mule.runtime</groupId>
             <artifactId>mule-module-extensions-support</artifactId>

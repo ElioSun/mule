@@ -101,16 +101,15 @@
                 </exclusion>
             </exclusions>
         </dependency>
+		<!-- TODO Remove this -->
         <dependency>
             <groupId>org.mule.runtime</groupId>
             <artifactId>mule-module-xml</artifactId>
             <version>${project.version}</version>
-            <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>com.google.guava</groupId>
             <artifactId>guava</artifactId>
-            <version>${guavaVersion}</version>
         </dependency>
         <dependency>
             <groupId>org.apache.cxf</groupId>
@@ -132,7 +131,6 @@
         <dependency>
             <groupId>commons-lang</groupId>
             <artifactId>commons-lang</artifactId>
-            <version>${commonsLangVersion}</version>
         </dependency>
         <dependency>
             <groupId>org.apache.cxf</groupId>
@@ -165,7 +163,6 @@
         <dependency>
             <groupId>xmlunit</groupId>
             <artifactId>xmlunit</artifactId>
-            <version>${xmlUnitVersion}</version>
             <scope>test</scope>
         </dependency>
     </dependencies>
