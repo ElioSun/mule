@@ -10,7 +10,7 @@ import org.mule.runtime.core.api.Event;
 import org.mule.runtime.core.api.message.InternalMessage;
 import org.mule.runtime.core.api.routing.filter.Filter;
 import org.mule.runtime.core.util.xmlsecurity.XMLSecureFactories;
-import org.mule.runtime.module.xml.util.XMLUtils;
+import org.mule.services.soap.impl.xml.util.XMLUtils;
 
 import javax.xml.stream.XMLInputFactory;
 import javax.xml.stream.XMLStreamConstants;

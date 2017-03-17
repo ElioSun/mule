@@ -8,7 +8,7 @@ package org.mule.runtime.module.xml.config;
 
 import org.mule.runtime.config.spring.parsers.assembly.BeanAssembler;
 import org.mule.runtime.config.spring.parsers.generic.ChildDefinitionParser;
-import org.mule.runtime.module.xml.util.XMLUtils;
+import org.mule.services.soap.impl.xml.util.XMLUtils;
 
 import javax.xml.transform.Result;
 import javax.xml.transform.Source;

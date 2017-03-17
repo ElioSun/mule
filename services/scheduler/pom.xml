@@ -53,20 +53,6 @@
             <artifactId>c3p0</artifactId>
         </dependency>
 
-        <!--Javascript-->
-        <!--Used for processing the config-->
-        <dependency>
-            <groupId>javax.script</groupId>
-            <artifactId>js-engine</artifactId>
-            <version>${rhinoJsr223Version}</version>
-            <classifier>jdk14</classifier>
-        </dependency>
-        <dependency>
-            <groupId>org.mozilla</groupId>
-            <artifactId>rhino</artifactId>
-            <version>${rhinoVersion}</version>
-        </dependency>
-
         <dependency>
             <groupId>org.mule.runtime</groupId>
             <artifactId>mule-api</artifactId>

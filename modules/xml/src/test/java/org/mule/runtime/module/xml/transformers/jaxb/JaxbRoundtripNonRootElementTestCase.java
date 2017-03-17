@@ -10,7 +10,7 @@ import org.mule.jaxb.model.Person;
 import org.mule.runtime.api.metadata.DataType;
 import org.mule.runtime.core.api.transformer.Transformer;
 import org.mule.runtime.module.xml.transformer.jaxb.JAXBUnmarshallerTransformer;
-import org.mule.runtime.module.xml.util.XMLUtils;
+import org.mule.services.soap.impl.xml.util.XMLUtils;
 
 import org.w3c.dom.Document;
 

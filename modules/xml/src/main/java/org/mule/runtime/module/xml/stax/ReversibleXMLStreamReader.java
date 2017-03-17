@@ -6,6 +6,8 @@
  */
 package org.mule.runtime.module.xml.stax;
 
+import org.mule.services.soap.impl.xml.stax.DelegateXMLStreamReader;
+
 import java.util.ArrayList;
 import java.util.List;
 

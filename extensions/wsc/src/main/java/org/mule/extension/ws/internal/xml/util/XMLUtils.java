@@ -4,21 +4,21 @@
  * license, a copy of which has been included with this distribution in the
  * LICENSE.txt file.
  */
-package org.mule.runtime.module.xml.util;
+package org.mule.extension.ws.internal.xml.util;
 
 import static org.mule.runtime.core.api.Event.getCurrentEvent;
 
+import org.mule.extension.ws.internal.xml.stax.DelegateXMLStreamReader;
+import org.mule.extension.ws.internal.xml.stax.StaxSource;
+import org.mule.extension.ws.internal.xml.transformer.DelayedResult;
+import org.mule.extension.ws.internal.xml.transformer.XmlToDomDocument;
 import org.mule.runtime.api.metadata.DataType;
+import org.mule.runtime.api.streaming.CursorStreamProvider;
 import org.mule.runtime.core.api.Event;
 import org.mule.runtime.core.api.MuleContext;
-import org.mule.runtime.api.streaming.CursorStreamProvider;
 import org.mule.runtime.core.message.OutputHandler;
 import org.mule.runtime.core.util.IOUtils;
 import org.mule.runtime.core.util.xmlsecurity.XMLSecureFactories;
-import org.mule.runtime.module.xml.stax.DelegateXMLStreamReader;
-import org.mule.runtime.module.xml.stax.StaxSource;
-import org.mule.runtime.module.xml.transformer.DelayedResult;
-import org.mule.runtime.module.xml.transformer.XmlToDomDocument;
 
 import java.io.ByteArrayInputStream;
 import java.io.File;
@@ -180,8 +180,8 @@ public class XMLUtils extends org.mule.runtime.core.util.XMLUtils {
   /**
    * Converts a payload to a {@link org.w3c.dom.Document} representation.
    * <p>
-   * Reproduces the behavior from {@link org.mule.runtime.module.xml.util.XMLUtils#toDocument(Object, MuleContext)} which works
-   * converting to {@link org.dom4j.Document}.
+   * Reproduces the behavior from {@link org.mule.services.soap.impl.xml.util.XMLUtils#toDocument(Object, MuleContext)} which
+   * works converting to {@link org.dom4j.Document}.
    *
    * @param payload the payload to convert.
    * @return a document from the payload or null if the payload is not a valid XML document.
@@ -261,8 +261,8 @@ public class XMLUtils extends org.mule.runtime.core.util.XMLUtils {
       throws XMLStreamException {
     if (obj instanceof javax.xml.stream.XMLStreamReader) {
       return (javax.xml.stream.XMLStreamReader) obj;
-    } else if (obj instanceof org.mule.runtime.module.xml.stax.StaxSource) {
-      return ((org.mule.runtime.module.xml.stax.StaxSource) obj).getXMLStreamReader();
+    } else if (obj instanceof org.mule.extension.ws.internal.xml.stax.StaxSource) {
+      return ((org.mule.extension.ws.internal.xml.stax.StaxSource) obj).getXMLStreamReader();
     } else if (obj instanceof javax.xml.transform.Source) {
       return factory.createXMLStreamReader((javax.xml.transform.Source) obj);
     } else if (obj instanceof org.xml.sax.InputSource) {
@@ -375,7 +375,7 @@ public class XMLUtils extends org.mule.runtime.core.util.XMLUtils {
                                                           InputStream stream)
       throws XMLStreamException {
     if (useStaxSource) {
-      return new org.mule.runtime.module.xml.stax.StaxSource(xmlInputFactory.createXMLStreamReader(stream));
+      return new org.mule.extension.ws.internal.xml.stax.StaxSource(xmlInputFactory.createXMLStreamReader(stream));
     } else {
       return new javax.xml.transform.stream.StreamSource(stream);
     }

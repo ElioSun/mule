@@ -15,9 +15,9 @@ import org.mule.runtime.core.config.i18n.CoreMessages;
 import org.mule.runtime.core.util.IOUtils;
 import org.mule.runtime.core.util.StringUtils;
 import org.mule.runtime.core.util.xmlsecurity.XMLSecureFactories;
-import org.mule.runtime.module.xml.transformer.DelayedResult;
 import org.mule.runtime.module.xml.util.MuleResourceResolver;
-import org.mule.runtime.module.xml.util.XMLUtils;
+import org.mule.services.soap.impl.xml.transformer.DelayedResult;
+import org.mule.services.soap.impl.xml.util.XMLUtils;
 
 import java.io.IOException;
 import java.io.InputStream;

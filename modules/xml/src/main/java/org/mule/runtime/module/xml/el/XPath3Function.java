@@ -22,12 +22,12 @@ import org.mule.runtime.core.el.context.MessageContext;
 import org.mule.runtime.core.el.mvel.MVELExpressionLanguageContext;
 import org.mule.runtime.core.message.OutputHandler;
 import org.mule.runtime.core.transformer.TransformerUtils;
-import org.mule.runtime.module.xml.transformer.DelayedResult;
 import org.mule.runtime.module.xml.util.NamespaceManager;
-import org.mule.runtime.module.xml.util.XMLUtils;
 import org.mule.runtime.module.xml.xpath.SaxonXpathEvaluator;
 import org.mule.runtime.module.xml.xpath.XPathEvaluator;
 import org.mule.runtime.module.xml.xpath.XPathReturnType;
+import org.mule.services.soap.impl.xml.transformer.DelayedResult;
+import org.mule.services.soap.impl.xml.util.XMLUtils;
 
 import com.google.common.base.Joiner;
 import com.google.common.base.Supplier;

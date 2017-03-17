@@ -20,10 +20,10 @@ import org.mule.runtime.core.config.i18n.CoreMessages;
 import org.mule.runtime.api.i18n.I18nMessageFactory;
 import org.mule.runtime.core.transformer.AbstractTransformer;
 import org.mule.runtime.module.xml.util.NamespaceManager;
-import org.mule.runtime.module.xml.util.XMLUtils;
 import org.mule.runtime.module.xml.xpath.SaxonXpathEvaluator;
 import org.mule.runtime.module.xml.xpath.XPathEvaluator;
 import org.mule.runtime.module.xml.xpath.XPathReturnType;
+import org.mule.services.soap.impl.xml.util.XMLUtils;
 
 import java.nio.charset.Charset;
 import java.util.Map;

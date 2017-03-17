@@ -16,9 +16,9 @@ import org.junit.Test;
 import org.mule.runtime.api.metadata.DataType;
 import org.mule.runtime.core.api.transformer.Transformer;
 import org.mule.runtime.core.message.OutputHandler;
-import org.mule.runtime.module.xml.transformer.XmlToDomDocument;
 import org.mule.runtime.module.xml.transformer.XmlToXMLStreamReader;
-import org.mule.runtime.module.xml.util.XMLUtils;
+import org.mule.services.soap.impl.xml.transformer.XmlToDomDocument;
+import org.mule.services.soap.impl.xml.util.XMLUtils;
 
 public class XmlToXMLStreamReaderTestCase extends AbstractXmlTransformerTestCase {
 

@@ -7,12 +7,13 @@
 package org.mule.runtime.module.xml.transformer;
 
 import org.mule.runtime.api.metadata.DataType;
+import org.mule.services.soap.impl.xml.transformer.XmlToDomDocument;
 
 import javax.xml.stream.XMLStreamReader;
 
 /**
  * Transforms an {@link javax.xml.stream.XMLStreamReader} to a byte array. Provides the same behavior of the
- * {@link org.mule.runtime.module.xml.transformer.XmlToDomDocument} transformer, but narrowing down the source types to only
+ * {@link org.mule.services.soap.impl.xml.transformer.XmlToDomDocument} transformer, but narrowing down the source types to only
  * support XMLStreamReader.
  */
 public class XMLStreamReaderToByteArray extends XmlToDomDocument {

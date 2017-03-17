@@ -10,7 +10,7 @@ import org.mule.runtime.api.metadata.DataType;
 import org.mule.runtime.core.api.transformer.Transformer;
 import org.mule.runtime.core.util.IOUtils;
 import org.mule.runtime.module.xml.transformer.DomDocumentToXml;
-import org.mule.runtime.module.xml.transformer.XmlToDomDocument;
+import org.mule.services.soap.impl.xml.transformer.XmlToDomDocument;
 
 import org.dom4j.DocumentHelper;
 import org.dom4j.io.DOMReader;

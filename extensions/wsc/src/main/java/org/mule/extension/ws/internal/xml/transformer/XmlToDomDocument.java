@@ -4,13 +4,13 @@
  * license, a copy of which has been included with this distribution in the
  * LICENSE.txt file.
  */
-package org.mule.runtime.module.xml.transformer;
+package org.mule.extension.ws.internal.xml.transformer;
 
+import org.mule.extension.ws.internal.xml.util.XMLUtils;
 import org.mule.runtime.api.metadata.DataType;
 import org.mule.runtime.core.api.Event;
 import org.mule.runtime.core.api.transformer.DiscoverableTransformer;
 import org.mule.runtime.core.api.transformer.TransformerException;
-import org.mule.runtime.module.xml.util.XMLUtils;
 
 import java.nio.charset.Charset;
 

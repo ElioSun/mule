@@ -7,6 +7,7 @@
 package org.mule.runtime.module.xml.util;
 
 import org.mule.runtime.core.util.IOUtils;
+import org.mule.services.soap.impl.xml.util.XMLUtils;
 
 import java.io.IOException;
 import java.io.InputStream;

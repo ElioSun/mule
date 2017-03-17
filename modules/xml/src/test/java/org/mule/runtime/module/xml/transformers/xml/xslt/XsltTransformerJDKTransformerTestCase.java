@@ -19,7 +19,7 @@ import org.mule.runtime.core.util.IOUtils;
 import org.mule.runtime.module.xml.transformer.XsltTransformer;
 import org.mule.runtime.module.xml.transformers.xml.AbstractXmlTransformerTestCase;
 import org.mule.runtime.module.xml.util.XMLTestUtils;
-import org.mule.runtime.module.xml.util.XMLUtils;
+import org.mule.services.soap.impl.xml.util.XMLUtils;
 
 import java.io.InputStream;
 import java.io.Serializable;

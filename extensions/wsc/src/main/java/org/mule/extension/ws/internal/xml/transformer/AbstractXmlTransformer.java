@@ -4,8 +4,9 @@
  * license, a copy of which has been included with this distribution in the
  * LICENSE.txt file.
  */
-package org.mule.runtime.module.xml.transformer;
+package org.mule.extension.ws.internal.xml.transformer;
 
+import org.mule.extension.ws.internal.xml.util.XMLUtils;
 import org.mule.runtime.api.exception.MuleRuntimeException;
 import org.mule.runtime.api.i18n.I18nMessageFactory;
 import org.mule.runtime.api.lifecycle.Initialisable;
@@ -16,7 +17,6 @@ import org.mule.runtime.core.api.transformer.TransformerException;
 import org.mule.runtime.core.message.OutputHandler;
 import org.mule.runtime.core.transformer.AbstractMessageTransformer;
 import org.mule.runtime.core.util.xmlsecurity.XMLSecureFactories;
-import org.mule.runtime.module.xml.util.XMLUtils;
 
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -63,7 +63,7 @@ public abstract class AbstractXmlTransformer extends AbstractMessageTransformer 
     registerSourceType(DataType.INPUT_STREAM);
     registerSourceType(DataType.fromType(OutputHandler.class));
     registerSourceType(DataType.fromType(javax.xml.stream.XMLStreamReader.class));
-    registerSourceType(DataType.fromType(org.mule.runtime.module.xml.transformer.DelayedResult.class));
+    registerSourceType(DataType.fromType(org.mule.extension.ws.internal.xml.transformer.DelayedResult.class));
     setReturnDataType(DataType.builder().type(byte[].class).mediaType(MediaType.XML).build());
   }
 

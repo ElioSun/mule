@@ -17,6 +17,7 @@ import org.mule.runtime.core.api.transformer.TransformerException;
 import org.mule.runtime.core.config.i18n.CoreMessages;
 import org.mule.runtime.core.util.IOUtils;
 import org.mule.runtime.module.xml.i18n.XmlMessages;
+import org.mule.services.soap.impl.xml.transformer.AbstractXmlTransformer;
 
 import com.saxonica.xqj.SaxonXQDataSource;
 

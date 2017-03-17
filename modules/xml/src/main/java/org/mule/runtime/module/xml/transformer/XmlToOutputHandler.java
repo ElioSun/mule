@@ -10,7 +10,9 @@ import org.mule.runtime.api.metadata.DataType;
 import org.mule.runtime.core.api.Event;
 import org.mule.runtime.core.api.transformer.DiscoverableTransformer;
 import org.mule.runtime.core.message.OutputHandler;
-import org.mule.runtime.module.xml.util.XMLUtils;
+import org.mule.services.soap.impl.xml.transformer.AbstractXmlTransformer;
+import org.mule.services.soap.impl.xml.transformer.DelayedResult;
+import org.mule.services.soap.impl.xml.util.XMLUtils;
 
 import java.io.IOException;
 import java.io.OutputStream;

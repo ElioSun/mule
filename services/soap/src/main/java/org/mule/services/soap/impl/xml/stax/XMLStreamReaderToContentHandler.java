@@ -32,7 +32,7 @@
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package org.mule.runtime.module.xml.stax;
+package org.mule.services.soap.impl.xml.stax;
 
 import javanet.staxutils.DummyLocator;
 import javanet.staxutils.StAXReaderToContentHandler;

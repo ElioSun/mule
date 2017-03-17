@@ -6,8 +6,8 @@
  */
 package org.mule.runtime.module.xml.transformers.xml;
 
-import org.mule.runtime.module.xml.util.XMLUtils;
 import org.mule.runtime.core.transformer.AbstractTransformerTestCase;
+import org.mule.services.soap.impl.xml.util.XMLUtils;
 
 import javax.xml.stream.XMLStreamReader;
 import javax.xml.transform.TransformerFactoryConfigurationError;

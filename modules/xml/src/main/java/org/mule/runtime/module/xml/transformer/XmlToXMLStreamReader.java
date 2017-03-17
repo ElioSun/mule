@@ -12,7 +12,8 @@ import org.mule.runtime.core.api.transformer.DiscoverableTransformer;
 import org.mule.runtime.core.api.transformer.TransformerException;
 import org.mule.runtime.api.i18n.I18nMessageFactory;
 import org.mule.runtime.module.xml.stax.ReversibleXMLStreamReader;
-import org.mule.runtime.module.xml.util.XMLUtils;
+import org.mule.services.soap.impl.xml.transformer.AbstractXmlTransformer;
+import org.mule.services.soap.impl.xml.util.XMLUtils;
 
 import java.io.ByteArrayOutputStream;
 import java.nio.charset.Charset;

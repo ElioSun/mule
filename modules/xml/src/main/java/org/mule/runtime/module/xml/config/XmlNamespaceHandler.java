@@ -22,11 +22,11 @@ import org.mule.runtime.module.xml.transformer.ObjectToXml;
 import org.mule.runtime.module.xml.transformer.XPathExtractor;
 import org.mule.runtime.module.xml.transformer.XQueryTransformer;
 import org.mule.runtime.module.xml.transformer.XmlPrettyPrinter;
-import org.mule.runtime.module.xml.transformer.XmlToDomDocument;
 import org.mule.runtime.module.xml.transformer.XmlToObject;
 import org.mule.runtime.module.xml.transformer.XmlToOutputHandler;
 import org.mule.runtime.module.xml.transformer.jaxb.JAXBMarshallerTransformer;
 import org.mule.runtime.module.xml.transformer.jaxb.JAXBUnmarshallerTransformer;
+import org.mule.services.soap.impl.xml.transformer.XmlToDomDocument;
 
 public class XmlNamespaceHandler extends AbstractMuleNamespaceHandler {
 

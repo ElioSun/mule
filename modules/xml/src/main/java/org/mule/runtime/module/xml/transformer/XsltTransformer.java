@@ -19,7 +19,9 @@ import org.mule.runtime.core.util.IOUtils;
 import org.mule.runtime.core.util.StringUtils;
 import org.mule.runtime.module.xml.i18n.XmlMessages;
 import org.mule.runtime.module.xml.util.LocalURIResolver;
-import org.mule.runtime.module.xml.util.XMLUtils;
+import org.mule.services.soap.impl.xml.transformer.AbstractXmlTransformer;
+import org.mule.services.soap.impl.xml.transformer.DelayedResult;
+import org.mule.services.soap.impl.xml.util.XMLUtils;
 
 import java.io.StringReader;
 import java.nio.charset.Charset;
