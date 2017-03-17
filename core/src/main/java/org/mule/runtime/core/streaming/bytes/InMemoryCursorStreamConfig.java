@@ -6,8 +6,8 @@
  */
 package org.mule.runtime.core.streaming.bytes;
 
-import static org.mule.runtime.extension.api.ExtensionConstants.DEFAULT_STREAMING_BUFFER_DATA_UNIT;
-import static org.mule.runtime.extension.api.ExtensionConstants.DEFAULT_STREAMING_BUFFER_SIZE;
+import static org.mule.runtime.extension.api.ExtensionConstants.DEFAULT_BYTE_STREAMING_BUFFER_DATA_UNIT;
+import static org.mule.runtime.extension.api.ExtensionConstants.DEFAULT_BYTE_STREAMING_BUFFER_SIZE;
 import org.mule.runtime.api.util.DataSize;
 import org.mule.runtime.core.internal.streaming.bytes.InputStreamBuffer;
 
@@ -26,7 +26,7 @@ public final class InMemoryCursorStreamConfig {
    * @return A new instance configured with default settings
    */
   public static InMemoryCursorStreamConfig getDefault() {
-    DataSize dataSize = new DataSize(DEFAULT_STREAMING_BUFFER_SIZE, DEFAULT_STREAMING_BUFFER_DATA_UNIT);
+    DataSize dataSize = new DataSize(DEFAULT_BYTE_STREAMING_BUFFER_SIZE, DEFAULT_BYTE_STREAMING_BUFFER_DATA_UNIT);
     return new InMemoryCursorStreamConfig(dataSize, dataSize, null);
   }
 

@@ -14,7 +14,7 @@ import static org.slf4j.LoggerFactory.getLogger;
 import static reactor.core.publisher.Mono.from;
 import org.mule.runtime.api.lifecycle.Disposable;
 import org.mule.runtime.api.scheduler.Scheduler;
-import org.mule.runtime.api.streaming.CursorStream;
+import org.mule.runtime.api.streaming.Cursor;
 import org.mule.runtime.core.api.EventContext;
 import org.mule.runtime.core.api.MuleContext;
 import org.mule.runtime.core.internal.streaming.bytes.factory.InMemoryCursorStreamProviderFactory;
@@ -214,7 +214,7 @@ public class DefaultByteStreamingManager implements ByteStreamingManagerAdapter,
           closeProvider(entry.getKey());
           final List<CursorStreamAdapter> cursors = entry.getValue();
           if (!cursors.isEmpty()) {
-            allCursorsClosed = allCursorsClosed && cursors.stream().allMatch(CursorStream::isClosed);
+            allCursorsClosed = allCursorsClosed && cursors.stream().allMatch(Cursor::isClosed);
           }
         }
         status = allCursorsClosed ? DISPOSABLE : SURVIVOR;

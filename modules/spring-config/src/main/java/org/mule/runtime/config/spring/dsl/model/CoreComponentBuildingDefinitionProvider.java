@@ -48,12 +48,15 @@ import static org.mule.runtime.dsl.api.component.KeyAttributeDefinitionPair.newB
 import static org.mule.runtime.dsl.api.component.TypeDefinition.fromConfigurationAttribute;
 import static org.mule.runtime.dsl.api.component.TypeDefinition.fromMapEntryType;
 import static org.mule.runtime.dsl.api.component.TypeDefinition.fromType;
-import static org.mule.runtime.extension.api.ExtensionConstants.DEFAULT_STREAMING_BUFFER_DATA_UNIT;
-import static org.mule.runtime.extension.api.ExtensionConstants.DEFAULT_STREAMING_BUFFER_INCREMENT_SIZE;
-import static org.mule.runtime.extension.api.ExtensionConstants.DEFAULT_STREAMING_BUFFER_SIZE;
-import static org.mule.runtime.extension.api.ExtensionConstants.DEFAULT_STREAMING_MAX_BUFFER_SIZE;
-import static org.mule.runtime.extension.api.declaration.type.StreamingStrategyTypeBuilder.NON_REPEATABLE_STREAM;
-import static org.mule.runtime.extension.api.declaration.type.StreamingStrategyTypeBuilder.REPEATABLE_IN_MEMORY_STREAM_ALIAS;
+import static org.mule.runtime.extension.api.ExtensionConstants.DEFAULT_BYTE_STREAMING_BUFFER_DATA_UNIT;
+import static org.mule.runtime.extension.api.ExtensionConstants.DEFAULT_BYTE_STREAMING_BUFFER_INCREMENT_SIZE;
+import static org.mule.runtime.extension.api.ExtensionConstants.DEFAULT_BYTE_STREAMING_BUFFER_SIZE;
+import static org.mule.runtime.extension.api.ExtensionConstants.DEFAULT_BYTES_STREAMING_MAX_BUFFER_SIZE;
+import static org.mule.runtime.extension.api.ExtensionConstants.DEFAULT_OBJECT_STREAMING_BUFFER_SIZE;
+import static org.mule.runtime.extension.api.declaration.type.StreamingStrategyTypeBuilder.NON_REPEATABLE_BYTE_STREAM_ALIAS;
+import static org.mule.runtime.extension.api.declaration.type.StreamingStrategyTypeBuilder.NON_REPEATABLE_OBJECTS_STREAM_ALIAS;
+import static org.mule.runtime.extension.api.declaration.type.StreamingStrategyTypeBuilder.REPEATABLE_IN_MEMORY_BYTES_STREAM_ALIAS;
+import static org.mule.runtime.extension.api.declaration.type.StreamingStrategyTypeBuilder.REPEATABLE_IN_MEMORY_OBJECTS_STREAM_ALIAS;
 import org.mule.runtime.api.config.PoolingProfile;
 import org.mule.runtime.api.exception.MuleRuntimeException;
 import org.mule.runtime.api.message.ErrorType;
@@ -1172,32 +1175,64 @@ public class CoreComponentBuildingDefinitionProvider implements ComponentBuildin
   private List<ComponentBuildingDefinition> getStreamingDefinitions() {
     List<ComponentBuildingDefinition> buildingDefinitions = new ArrayList<>();
 
-    buildingDefinitions.add(baseDefinition.copy()
-        .withIdentifier(REPEATABLE_IN_MEMORY_STREAM_ALIAS)
-        .withTypeDefinition(fromType(CursorStreamProviderFactory.class))
-        .withObjectFactoryType(InMemoryCursorStreamProviderObjectFactory.class)
-        .withConstructorParameterDefinition(
-                                            fromSimpleParameter("initialBufferSize")
-                                                .withDefaultValue(DEFAULT_STREAMING_BUFFER_SIZE)
-                                                .build())
-        .withConstructorParameterDefinition(
-                                            fromSimpleParameter("bufferSizeIncrement")
-                                                .withDefaultValue(DEFAULT_STREAMING_BUFFER_INCREMENT_SIZE)
-                                                .build())
-        .withConstructorParameterDefinition(
-                                            fromSimpleParameter("maxInMemorySize")
-                                                .withDefaultValue(DEFAULT_STREAMING_MAX_BUFFER_SIZE)
-                                                .build())
-        .withConstructorParameterDefinition(
-                                            fromSimpleParameter("bufferUnit", value -> DataUnit.valueOf((String) value))
-                                                .withDefaultValue(DEFAULT_STREAMING_BUFFER_DATA_UNIT).build())
-        .build());
+    buildingDefinitions.addAll(getBytesStreamingDefinitions());
+    buildingDefinitions.addAll(getObjectsStreamingDefinitions());
+
+    return buildingDefinitions;
+  }
+
+  private List<ComponentBuildingDefinition> getBytesStreamingDefinitions() {
+    List<ComponentBuildingDefinition> buildingDefinitions = new ArrayList<>();
 
     buildingDefinitions.add(baseDefinition.copy()
-        .withIdentifier(NON_REPEATABLE_STREAM)
-        .withTypeDefinition(fromType(CursorStreamProviderFactory.class))
-        .withObjectFactoryType(NullCursorStreamProviderObjectFactory.class)
-        .build());
+                                .withIdentifier(REPEATABLE_IN_MEMORY_BYTES_STREAM_ALIAS)
+                                .withTypeDefinition(fromType(CursorStreamProviderFactory.class))
+                                .withObjectFactoryType(InMemoryCursorStreamProviderObjectFactory.class)
+                                .withConstructorParameterDefinition(
+                                    fromSimpleParameter("initialBufferSize")
+                                        .withDefaultValue(DEFAULT_BYTE_STREAMING_BUFFER_SIZE)
+                                        .build())
+                                .withConstructorParameterDefinition(
+                                    fromSimpleParameter("bufferSizeIncrement")
+                                        .withDefaultValue(DEFAULT_BYTE_STREAMING_BUFFER_INCREMENT_SIZE)
+                                        .build())
+                                .withConstructorParameterDefinition(
+                                    fromSimpleParameter("maxInMemorySize")
+                                        .withDefaultValue(DEFAULT_BYTES_STREAMING_MAX_BUFFER_SIZE)
+                                        .build())
+                                .withConstructorParameterDefinition(
+                                    fromSimpleParameter("bufferUnit", value -> DataUnit.valueOf((String) value))
+                                        .withDefaultValue(DEFAULT_BYTE_STREAMING_BUFFER_DATA_UNIT).build())
+                                .build());
+
+    buildingDefinitions.add(baseDefinition.copy()
+                                .withIdentifier(NON_REPEATABLE_BYTE_STREAM_ALIAS)
+                                .withTypeDefinition(fromType(CursorStreamProviderFactory.class))
+                                .withObjectFactoryType(NullCursorStreamProviderObjectFactory.class)
+                                .build());
+
+    return buildingDefinitions;
+  }
+
+  private List<ComponentBuildingDefinition> getObjectsStreamingDefinitions() {
+    List<ComponentBuildingDefinition> buildingDefinitions = new ArrayList<>();
+
+    buildingDefinitions.add(baseDefinition.copy()
+                                .withIdentifier(REPEATABLE_IN_MEMORY_OBJECTS_STREAM_ALIAS)
+                                .withTypeDefinition(fromType(CursorStreamProviderFactory.class))
+                                .withObjectFactoryType(InMemoryCursorStreamProviderObjectFactory.class)
+                                .withConstructorParameterDefinition(
+                                    fromSimpleParameter("maxInMemoryObjects")
+                                        .withDefaultValue(DEFAULT_OBJECT_STREAMING_BUFFER_SIZE)
+                                        .build())
+                                .build());
+
+    buildingDefinitions.add(baseDefinition.copy()
+                                .withIdentifier(NON_REPEATABLE_OBJECTS_STREAM_ALIAS)
+                                .withTypeDefinition(fromType(CursorStreamProviderFactory.class))
+                                .withObjectFactoryType(NullCursorStreamProviderObjectFactory.class)
+                                .build());
+
     return buildingDefinitions;
   }
 
