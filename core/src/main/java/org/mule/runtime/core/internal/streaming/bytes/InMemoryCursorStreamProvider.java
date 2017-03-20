@@ -6,7 +6,7 @@
  */
 package org.mule.runtime.core.internal.streaming.bytes;
 
-import org.mule.runtime.api.streaming.CursorStream;
+import org.mule.runtime.api.streaming.bytes.CursorStream;
 import org.mule.runtime.core.api.Event;
 import org.mule.runtime.core.streaming.bytes.InMemoryCursorStreamConfig;
 

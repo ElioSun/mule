@@ -6,7 +6,7 @@
  */
 package org.mule.runtime.core.internal.streaming.bytes;
 
-import org.mule.runtime.api.streaming.CursorStream;
+import org.mule.runtime.api.streaming.bytes.CursorStream;
 
 /**
  * Adapter interface to expand the {@link CursorStream} API with functionality which should

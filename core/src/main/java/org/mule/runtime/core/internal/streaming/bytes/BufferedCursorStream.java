@@ -7,7 +7,7 @@
 package org.mule.runtime.core.internal.streaming.bytes;
 
 import static java.lang.Math.min;
-import org.mule.runtime.api.streaming.CursorStream;
+import org.mule.runtime.api.streaming.bytes.CursorStream;
 
 import java.io.IOException;
 import java.nio.ByteBuffer;

@@ -11,8 +11,8 @@ import static org.mule.runtime.core.api.rx.Exceptions.rxExceptionToMuleException
 import static reactor.core.Exceptions.unwrap;
 import org.mule.runtime.api.exception.MuleException;
 import org.mule.runtime.api.message.Message;
-import org.mule.runtime.api.streaming.CursorStream;
-import org.mule.runtime.api.streaming.CursorStreamProvider;
+import org.mule.runtime.api.streaming.bytes.CursorStream;
+import org.mule.runtime.api.streaming.bytes.CursorStreamProvider;
 import org.mule.runtime.api.util.Reference;
 import org.mule.runtime.core.api.Event;
 import org.mule.runtime.core.util.func.CheckedFunction;

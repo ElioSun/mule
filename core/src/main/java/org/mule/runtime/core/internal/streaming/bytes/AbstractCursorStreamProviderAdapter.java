@@ -7,7 +7,7 @@
 package org.mule.runtime.core.internal.streaming.bytes;
 
 import static org.mule.runtime.api.util.Preconditions.checkState;
-import org.mule.runtime.api.streaming.CursorStream;
+import org.mule.runtime.api.streaming.bytes.CursorStream;
 import org.mule.runtime.core.api.Event;
 
 import java.io.InputStream;

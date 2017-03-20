@@ -6,8 +6,8 @@
  */
 package org.mule.runtime.core.streaming.bytes;
 
-import org.mule.runtime.api.streaming.CursorStream;
-import org.mule.runtime.api.streaming.CursorStreamProvider;
+import org.mule.runtime.api.streaming.bytes.CursorStream;
+import org.mule.runtime.api.streaming.bytes.CursorStreamProvider;
 
 /**
  * Statistics about current streaming assets

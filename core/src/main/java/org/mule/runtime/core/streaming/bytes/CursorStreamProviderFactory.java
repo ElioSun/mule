@@ -6,7 +6,7 @@
  */
 package org.mule.runtime.core.streaming.bytes;
 
-import org.mule.runtime.api.streaming.CursorStreamProvider;
+import org.mule.runtime.api.streaming.bytes.CursorStreamProvider;
 import org.mule.runtime.core.api.Event;
 import org.mule.runtime.core.api.functional.Either;
 

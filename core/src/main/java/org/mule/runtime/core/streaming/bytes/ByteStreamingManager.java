@@ -6,7 +6,7 @@
  */
 package org.mule.runtime.core.streaming.bytes;
 
-import org.mule.runtime.api.streaming.CursorStreamProvider;
+import org.mule.runtime.api.streaming.bytes.CursorStreamProvider;
 
 /**
  * Manages components in charge of streaming bytes so that the runtime can keep track of them,
