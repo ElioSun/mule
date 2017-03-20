@@ -6,6 +6,7 @@
  */
 package org.mule.extension.ws.api.security.config;
 
+import org.mule.runtime.extension.api.annotation.Alias;
 import org.mule.runtime.extension.api.annotation.param.Optional;
 import org.mule.runtime.extension.api.annotation.param.Parameter;
 import org.mule.runtime.extension.api.annotation.param.display.Password;
@@ -17,6 +18,7 @@ import org.mule.services.soap.api.security.config.WssStoreConfiguration;
  *
  * @since 4.0
  */
+@Alias("wss-trust-store-configuration")
 public class WssTrustStoreConfigurationAdapter implements WssStoreConfiguration {
 
   @Parameter

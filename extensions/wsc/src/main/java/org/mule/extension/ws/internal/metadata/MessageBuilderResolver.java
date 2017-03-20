@@ -7,12 +7,14 @@
 package org.mule.extension.ws.internal.metadata;
 
 import org.mule.extension.ws.api.SoapMessageBuilder;
+import org.mule.metadata.api.builder.ObjectTypeBuilder;
 import org.mule.metadata.api.model.MetadataType;
 import org.mule.metadata.api.model.NullType;
 import org.mule.runtime.api.connection.ConnectionException;
 import org.mule.runtime.api.metadata.MetadataContext;
 import org.mule.runtime.api.metadata.MetadataResolvingException;
 import org.mule.runtime.api.metadata.resolving.InputTypeResolver;
+import org.mule.services.soap.api.client.metadata.SoapOperationMetadata;
 
 /**
  * {@link InputTypeResolver} implementation to resolve metadata for an input message of a particular operation.
@@ -35,6 +37,11 @@ public class MessageBuilderResolver extends BaseWscResolver implements InputType
   @Override
   public MetadataType getInputMetadata(MetadataContext context, String operationName)
       throws MetadataResolvingException, ConnectionException {
-    return getMetadata(context, operationName);
+    SoapOperationMetadata metadata = getConnection(context).getMetadataResolver().getInputMetadata(operationName);
+    ObjectTypeBuilder typeBuilder = context.getTypeBuilder().objectType();
+    typeBuilder.addField().key(HEADERS_FIELD).value(metadata.getHeadersType());
+    typeBuilder.addField().key(BODY_FIELD).value(metadata.getBodyType());
+    typeBuilder.addField().key(ATTACHMENTS_FIELD).value(metadata.getAttachmentsType());
+    return typeBuilder.build();
   }
 }

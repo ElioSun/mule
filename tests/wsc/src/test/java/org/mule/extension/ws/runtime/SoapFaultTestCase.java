@@ -13,16 +13,18 @@ import static org.hamcrest.Matchers.isOneOf;
 import static org.junit.Assert.assertThat;
 import static org.mule.extension.ws.WscTestUtils.FAIL;
 import static org.mule.extension.ws.WscTestUtils.getRequestResource;
-import static org.mule.extension.ws.api.exception.WscErrors.BAD_REQUEST;
-import static org.mule.extension.ws.api.exception.WscErrors.SOAP_FAULT;
 import static org.mule.services.soap.api.SoapVersion.SOAP11;
 import static org.mule.tck.junit4.matcher.ErrorTypeMatcher.errorType;
 import org.mule.extension.ws.AbstractSoapServiceTestCase;
+import org.mule.functional.junit4.rules.ExpectedError;
 import org.mule.runtime.api.message.Error;
 import org.mule.runtime.core.exception.MessagingException;
 import org.mule.services.soap.api.exception.BadRequestException;
 import org.mule.services.soap.api.exception.SoapFaultException;
+import org.mule.tck.junit4.matcher.ErrorTypeMatcher;
 
+import org.hamcrest.Matchers;
+import org.junit.Rule;
 import org.junit.Test;
 import ru.yandex.qatools.allure.annotations.Description;
 import ru.yandex.qatools.allure.annotations.Features;
@@ -34,10 +36,17 @@ public class SoapFaultTestCase extends AbstractSoapServiceTestCase {
 
   private static final String FAIL_FLOW = "failOperation";
 
+  // TODO WscErrors class not found
+  public static final String SOAP_FAULT = "Soap Fault";
+  public static final String BAD_REQUEST = "Bad Request";
+
   @Override
   protected String getConfigurationFile() {
     return "config/fail.xml";
   }
+
+  @Rule
+  public ExpectedError expectedError = ExpectedError.none();
 
   @Test
   @Description("Consumes an operation that throws a SOAP Fault and expects a Soap Fault Exception")
@@ -45,7 +54,7 @@ public class SoapFaultTestCase extends AbstractSoapServiceTestCase {
     MessagingException me = flowRunner(FAIL_FLOW).withPayload(getRequestResource(FAIL)).runExpectingException();
     Error error = me.getEvent().getError().get();
 
-    assertThat(error.getErrorType(), is(errorType("WSC", SOAP_FAULT.getType())));
+    assertThat(error.getErrorType(), is(errorType("WSC", SOAP_FAULT)));
 
     Throwable causeException = error.getCause();
     assertThat(causeException, instanceOf(SoapFaultException.class));
@@ -64,7 +73,7 @@ public class SoapFaultTestCase extends AbstractSoapServiceTestCase {
 
     Error error = me.getEvent().getError().get();
 
-    assertThat(error.getErrorType(), is(errorType("WSC", SOAP_FAULT.getType())));
+    assertThat(error.getErrorType(), Matchers.is(ErrorTypeMatcher.errorType("WSC", SOAP_FAULT)));
     assertThat(error.getCause(), instanceOf(SoapFaultException.class));
     SoapFaultException sf = (SoapFaultException) error.getCause();
 
@@ -86,7 +95,7 @@ public class SoapFaultTestCase extends AbstractSoapServiceTestCase {
     MessagingException me = flowRunner(FAIL_FLOW).withPayload("not a valid XML file").runExpectingException();
     Error error = me.getEvent().getError().get();
 
-    assertThat(error.getErrorType(), is(errorType("WSC", BAD_REQUEST.getType())));
+    assertThat(error.getErrorType(), is(errorType("WSC", BAD_REQUEST)));
     assertThat(error.getCause(), instanceOf(BadRequestException.class));
     assertThat(error.getCause().getMessage(), is("Error consuming the operation [fail], the request body is not a valid XML"));
   }

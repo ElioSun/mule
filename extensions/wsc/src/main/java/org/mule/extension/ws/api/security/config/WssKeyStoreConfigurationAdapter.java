@@ -18,7 +18,7 @@ import org.mule.services.soap.api.security.config.WssStoreConfiguration;
  *
  * @since 4.0
  */
-@Alias("WssKeyStoreConfiguration")
+@Alias("wss-key-store-configuration")
 public class WssKeyStoreConfigurationAdapter implements WssStoreConfiguration {
 
   @Parameter

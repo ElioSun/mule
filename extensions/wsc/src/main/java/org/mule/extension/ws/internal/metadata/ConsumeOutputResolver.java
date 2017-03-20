@@ -35,7 +35,7 @@ public class ConsumeOutputResolver extends BaseWscResolver implements OutputType
   public MetadataType getOutputType(MetadataContext context, String operationName)
       throws MetadataResolvingException, ConnectionException {
     SoapOperationMetadata metadata = getConnection(context).getMetadataResolver().getOutputMetadata(operationName);
-    if (metadata.getAttachmentsType() instanceof NullType){
+    if (metadata.getAttachmentsType() instanceof NullType) {
       return metadata.getBodyType();
     }
 

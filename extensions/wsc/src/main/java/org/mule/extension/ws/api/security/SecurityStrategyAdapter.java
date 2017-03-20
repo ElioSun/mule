@@ -6,6 +6,7 @@
  */
 package org.mule.extension.ws.api.security;
 
+import org.mule.runtime.extension.api.annotation.Alias;
 import org.mule.services.soap.api.security.SecurityStrategy;
 
 /**
@@ -16,6 +17,7 @@ import org.mule.services.soap.api.security.SecurityStrategy;
  *
  * @since 4.0
  */
+@Alias("security-strategy")
 public interface SecurityStrategyAdapter {
 
   /**

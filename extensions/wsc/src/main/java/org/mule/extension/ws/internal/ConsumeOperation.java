@@ -8,14 +8,18 @@ package org.mule.extension.ws.internal;
 
 
 import static org.apache.commons.lang.StringUtils.isBlank;
+import static org.mule.runtime.core.message.DefaultMultiPartPayload.BODY_ATTRIBUTES;
 import static org.mule.runtime.module.xml.util.XMLUtils.toW3cDocument;
 import org.mule.extension.ws.api.SoapMessageBuilder;
 import org.mule.extension.ws.api.WscAttributes;
+import org.mule.extension.ws.api.WscMultipartPayload;
 import org.mule.extension.ws.api.exception.WscException;
 import org.mule.extension.ws.internal.metadata.ConsumeOutputResolver;
 import org.mule.extension.ws.internal.metadata.MessageBuilderResolver;
 import org.mule.extension.ws.internal.metadata.OperationKeysResolver;
 import org.mule.extension.ws.internal.metadata.WscAttributesResolver;
+import org.mule.runtime.api.message.Message;
+import org.mule.runtime.core.message.PartAttributes;
 import org.mule.runtime.extension.api.annotation.OnException;
 import org.mule.runtime.extension.api.annotation.error.Throws;
 import org.mule.runtime.extension.api.annotation.metadata.MetadataKeyId;
@@ -32,11 +36,13 @@ import org.mule.services.soap.api.message.SoapRequest;
 import org.mule.services.soap.api.message.SoapRequestBuilder;
 import org.mule.services.soap.api.message.SoapResponse;
 
+import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableMap;
 
 import java.io.StringWriter;
 import java.util.Collections;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 import javax.xml.transform.Transformer;
 import javax.xml.transform.TransformerFactory;
@@ -84,11 +90,25 @@ public class ConsumeOperation {
     }
 
     SoapResponse response = connection.consume(requestBuilder.build());
-    return Result.<Object, WscAttributes>builder().output(response.getContent())
-        .attributes(new WscAttributes(response.getSoapHeaders(), response.getTransportHeaders()))
-        .build();
+
+    Object result;
+    if (!response.getAttachments().isEmpty()) {
+      ImmutableList<Message> parts = ImmutableList.<Message>builder()
+          .add(Message.builder().payload(response.getContent()).attributes(BODY_ATTRIBUTES).build())
+          .addAll(response.getAttachments().stream()
+              .map(a -> Message.builder().payload(a.getContent()).attributes(new PartAttributes(a.getId())).build())
+              .collect(Collectors.toList()))
+          .build();
+      result = new WscMultipartPayload(parts);
+    } else {
+      result = response.getContent();
+    }
+
+    return Result.<Object, WscAttributes>builder().output(result)
+        .attributes(new WscAttributes(response.getSoapHeaders(), response.getTransportHeaders())).build();
   }
 
+  // TODO
   private Map<String, String> transformToCxfHeaders(String headers) {
     if (isBlank(headers)) {
       return Collections.emptyMap();

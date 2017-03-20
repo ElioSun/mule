@@ -6,6 +6,7 @@
  */
 package org.mule.extension.ws.internal.connection;
 
+import org.mule.extension.ws.api.security.SecurityStrategyAdapter;
 import org.mule.runtime.api.connection.ConnectionException;
 import org.mule.runtime.api.connection.ConnectionProvider;
 import org.mule.runtime.api.connection.ConnectionValidationResult;
@@ -18,9 +19,9 @@ import org.mule.services.soap.api.SoapVersion;
 import org.mule.services.soap.api.client.MessageDispatcher;
 import org.mule.services.soap.api.client.SoapClient;
 import org.mule.services.soap.api.client.SoapClientConfiguration;
-import org.mule.services.soap.api.security.SecurityStrategy;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import javax.inject.Inject;
 
@@ -65,7 +66,7 @@ public class WscConnectionProvider implements PoolingConnectionProvider<SoapClie
   @Parameter
   @Optional
   @NullSafe
-  private List<SecurityStrategy> securityStrategies;
+  private List<SecurityStrategyAdapter> securityStrategies;
 
   @Parameter
   @Optional
@@ -99,7 +100,9 @@ public class WscConnectionProvider implements PoolingConnectionProvider<SoapClie
                                                                              port,
                                                                              soapVersion,
                                                                              mtomEnabled,
-                                                                             securityStrategies,
+                                                                             securityStrategies.stream()
+                                                                                 .map(SecurityStrategyAdapter::getSecurityStrategy)
+                                                                                 .collect(Collectors.toList()),
                                                                              messageDispatcher));
   }
 

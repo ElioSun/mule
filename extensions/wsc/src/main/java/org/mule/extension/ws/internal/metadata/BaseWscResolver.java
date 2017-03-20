@@ -8,14 +8,11 @@ package org.mule.extension.ws.internal.metadata;
 
 import static org.mule.runtime.api.metadata.resolving.FailureCode.CONNECTION_FAILURE;
 import org.mule.extension.ws.internal.ConsumeOperation;
-import org.mule.metadata.api.builder.ObjectTypeBuilder;
-import org.mule.metadata.api.model.MetadataType;
 import org.mule.runtime.api.connection.ConnectionException;
 import org.mule.runtime.api.metadata.MetadataContext;
 import org.mule.runtime.api.metadata.MetadataResolvingException;
 import org.mule.runtime.api.metadata.resolving.NamedTypeResolver;
 import org.mule.services.soap.api.client.SoapClient;
-import org.mule.services.soap.api.client.metadata.SoapOperationMetadata;
 
 /**
  * Base class for all metadata resolvers of the {@link ConsumeOperation}.
@@ -38,15 +35,5 @@ public abstract class BaseWscResolver implements NamedTypeResolver {
     return context.<SoapClient>getConnection()
         .orElseThrow(() -> new MetadataResolvingException("Could not obtain connection to retrieve metadata",
                                                           CONNECTION_FAILURE));
-  }
-
-  protected MetadataType getMetadata(MetadataContext context, String operationName)
-      throws MetadataResolvingException, ConnectionException {
-    SoapOperationMetadata metadata = getConnection(context).getMetadataResolver().getOutputMetadata(operationName);
-    ObjectTypeBuilder typeBuilder = context.getTypeBuilder().objectType();
-    typeBuilder.addField().key(HEADERS_FIELD).value(metadata.getHeadersType());
-    typeBuilder.addField().key(BODY_FIELD).value(metadata.getBodyType());
-    typeBuilder.addField().key(ATTACHMENTS_FIELD).value().arrayType().of(context.getTypeBuilder().anyType());
-    return typeBuilder.build();
   }
 }

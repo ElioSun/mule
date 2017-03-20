@@ -10,6 +10,7 @@ import static java.lang.String.format;
 import static org.mule.metadata.api.utils.MetadataTypeUtils.getLocalPart;
 import static org.mule.runtime.api.metadata.resolving.FailureCode.INVALID_CONFIGURATION;
 import static org.mule.runtime.extension.api.declaration.type.ExtensionsTypeLoaderFactory.getDefault;
+import static org.mule.services.soap.util.SoapServiceMetadataTypeUtils.getAttachmentFields;
 import org.mule.metadata.api.TypeLoader;
 import org.mule.metadata.api.builder.ObjectTypeBuilder;
 import org.mule.metadata.api.model.MetadataType;
@@ -17,7 +18,6 @@ import org.mule.metadata.api.model.ObjectFieldType;
 import org.mule.runtime.api.metadata.MetadataResolvingException;
 import org.mule.services.soap.api.message.SoapAttachment;
 import org.mule.services.soap.introspection.WsdlIntrospecter;
-import org.mule.services.soap.util.SoapServiceMetadataTypeUtils;
 
 import java.util.List;
 
@@ -43,7 +43,7 @@ final class AttachmentsMetadataResolver extends NodeMetadataResolver {
                                                           INVALID_CONFIGURATION));
 
     MetadataType bodyType = buildPartMetadataType(bodyPart);
-    List<ObjectFieldType> attachments = SoapServiceMetadataTypeUtils.getAttachmentFields(bodyType);
+    List<ObjectFieldType> attachments = getAttachmentFields(bodyType);
     if (attachments.isEmpty()) {
       return nullType;
     }
