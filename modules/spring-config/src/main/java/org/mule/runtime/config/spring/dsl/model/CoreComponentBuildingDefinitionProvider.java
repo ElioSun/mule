@@ -48,11 +48,13 @@ import static org.mule.runtime.dsl.api.component.KeyAttributeDefinitionPair.newB
 import static org.mule.runtime.dsl.api.component.TypeDefinition.fromConfigurationAttribute;
 import static org.mule.runtime.dsl.api.component.TypeDefinition.fromMapEntryType;
 import static org.mule.runtime.dsl.api.component.TypeDefinition.fromType;
+import static org.mule.runtime.extension.api.ExtensionConstants.DEFAULT_BYTES_STREAMING_MAX_BUFFER_SIZE;
 import static org.mule.runtime.extension.api.ExtensionConstants.DEFAULT_BYTE_STREAMING_BUFFER_DATA_UNIT;
 import static org.mule.runtime.extension.api.ExtensionConstants.DEFAULT_BYTE_STREAMING_BUFFER_INCREMENT_SIZE;
 import static org.mule.runtime.extension.api.ExtensionConstants.DEFAULT_BYTE_STREAMING_BUFFER_SIZE;
-import static org.mule.runtime.extension.api.ExtensionConstants.DEFAULT_BYTES_STREAMING_MAX_BUFFER_SIZE;
+import static org.mule.runtime.extension.api.ExtensionConstants.DEFAULT_OBJECT_STREAMING_BUFFER_INCREMENT_SIZE;
 import static org.mule.runtime.extension.api.ExtensionConstants.DEFAULT_OBJECT_STREAMING_BUFFER_SIZE;
+import static org.mule.runtime.extension.api.ExtensionConstants.DEFAULT_OBJECT_STREAMING_MAX_BUFFER_SIZE;
 import static org.mule.runtime.extension.api.declaration.type.StreamingStrategyTypeBuilder.NON_REPEATABLE_BYTE_STREAM_ALIAS;
 import static org.mule.runtime.extension.api.declaration.type.StreamingStrategyTypeBuilder.NON_REPEATABLE_OBJECTS_STREAM_ALIAS;
 import static org.mule.runtime.extension.api.declaration.type.StreamingStrategyTypeBuilder.REPEATABLE_IN_MEMORY_BYTES_STREAM_ALIAS;
@@ -87,7 +89,9 @@ import org.mule.runtime.config.spring.factories.ScatterGatherRouterFactoryBean;
 import org.mule.runtime.config.spring.factories.SchedulingMessageSourceFactoryBean;
 import org.mule.runtime.config.spring.factories.SubflowMessageProcessorChainFactoryBean;
 import org.mule.runtime.config.spring.factories.TryProcessorFactoryBean;
+import org.mule.runtime.config.spring.factories.streaming.InMemoryCursorIteratorProviderObjectFactory;
 import org.mule.runtime.config.spring.factories.streaming.InMemoryCursorStreamProviderObjectFactory;
+import org.mule.runtime.config.spring.factories.streaming.NullCursorIteratorProviderObjectFactory;
 import org.mule.runtime.config.spring.factories.streaming.NullCursorStreamProviderObjectFactory;
 import org.mule.runtime.config.spring.util.SpringBeanLookup;
 import org.mule.runtime.core.api.MuleContext;
@@ -176,6 +180,7 @@ import org.mule.runtime.core.source.StartableCompositeMessageSource;
 import org.mule.runtime.core.source.scheduler.SchedulerMessageSource;
 import org.mule.runtime.core.source.scheduler.schedule.FixedFrequencyScheduler;
 import org.mule.runtime.core.streaming.bytes.CursorStreamProviderFactory;
+import org.mule.runtime.core.streaming.objects.CursorIteratorProviderFactory;
 import org.mule.runtime.core.transaction.TransactionType;
 import org.mule.runtime.core.transaction.lookup.GenericTransactionManagerLookupFactory;
 import org.mule.runtime.core.transaction.lookup.JBossTransactionManagerLookupFactory;
@@ -1219,18 +1224,26 @@ public class CoreComponentBuildingDefinitionProvider implements ComponentBuildin
 
     buildingDefinitions.add(baseDefinition.copy()
                                 .withIdentifier(REPEATABLE_IN_MEMORY_OBJECTS_STREAM_ALIAS)
-                                .withTypeDefinition(fromType(CursorStreamProviderFactory.class))
-                                .withObjectFactoryType(InMemoryCursorStreamProviderObjectFactory.class)
+                                .withTypeDefinition(fromType(CursorIteratorProviderFactory.class))
+                                .withObjectFactoryType(InMemoryCursorIteratorProviderObjectFactory.class)
                                 .withConstructorParameterDefinition(
-                                    fromSimpleParameter("maxInMemoryObjects")
+                                    fromSimpleParameter("initialBufferSize")
                                         .withDefaultValue(DEFAULT_OBJECT_STREAMING_BUFFER_SIZE)
+                                        .build())
+                                .withConstructorParameterDefinition(
+                                    fromSimpleParameter("bufferSizeIncrement")
+                                        .withDefaultValue(DEFAULT_OBJECT_STREAMING_BUFFER_INCREMENT_SIZE)
+                                        .build())
+                                .withConstructorParameterDefinition(
+                                    fromSimpleParameter("maxInMemorySize")
+                                        .withDefaultValue(DEFAULT_OBJECT_STREAMING_MAX_BUFFER_SIZE)
                                         .build())
                                 .build());
 
     buildingDefinitions.add(baseDefinition.copy()
                                 .withIdentifier(NON_REPEATABLE_OBJECTS_STREAM_ALIAS)
-                                .withTypeDefinition(fromType(CursorStreamProviderFactory.class))
-                                .withObjectFactoryType(NullCursorStreamProviderObjectFactory.class)
+                                .withTypeDefinition(fromType(CursorIteratorProviderFactory.class))
+                                .withObjectFactoryType(NullCursorIteratorProviderObjectFactory.class)
                                 .build());
 
     return buildingDefinitions;

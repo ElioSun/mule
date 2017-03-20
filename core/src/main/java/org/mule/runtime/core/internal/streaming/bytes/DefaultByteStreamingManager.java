@@ -77,7 +77,7 @@ public class DefaultByteStreamingManager implements ByteStreamingManagerAdapter,
    * {@inheritDoc}
    */
   @Override
-  public CursorStreamProviderFactory getInMemoryCursorStreamProviderFactory(InMemoryCursorStreamConfig config) {
+  public CursorStreamProviderFactory getInMemoryCursorProviderFactory(InMemoryCursorStreamConfig config) {
     return new InMemoryCursorStreamProviderFactory(this, config, bufferManager);
   }
 
@@ -85,7 +85,7 @@ public class DefaultByteStreamingManager implements ByteStreamingManagerAdapter,
    * {@inheritDoc}
    */
   @Override
-  public CursorStreamProviderFactory getNullCursorStreamProviderFactory() {
+  public CursorStreamProviderFactory getNullCursorProviderFactory() {
     return new NullCursorStreamProviderFactory(this);
   }
 
@@ -93,7 +93,7 @@ public class DefaultByteStreamingManager implements ByteStreamingManagerAdapter,
    * {@inheritDoc}
    */
   @Override
-  public CursorStreamProviderFactory getDefaultCursorStreamProviderFactory() {
+  public CursorStreamProviderFactory getDefaultCursorProviderFactory() {
     return new InMemoryCursorStreamProviderFactory(this, InMemoryCursorStreamConfig.getDefault(), bufferManager);
   }
 

@@ -358,7 +358,7 @@ public final class ExtensionsTestUtils {
 
   public static CursorStreamProviderFactory getDefaultCursorStreamProviderFactory(MuleContext muleContext) {
     try {
-      return muleContext.getRegistry().lookupObject(StreamingManager.class).forBytes().getDefaultCursorStreamProviderFactory();
+      return muleContext.getRegistry().lookupObject(StreamingManager.class).forBytes().getDefaultCursorProviderFactory();
     } catch (RegistrationException e) {
       throw new RuntimeException(e);
     }

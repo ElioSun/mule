@@ -22,19 +22,19 @@ public interface ByteStreamingManager {
    * @param config the configuration for the produced {@link CursorStreamProvider} instances
    * @return a new {@link CursorStreamProviderFactory}
    */
-  CursorStreamProviderFactory getInMemoryCursorStreamProviderFactory(InMemoryCursorStreamConfig config);
+  CursorStreamProviderFactory getInMemoryCursorProviderFactory(InMemoryCursorStreamConfig config);
 
   /**
    * Creates a null object implementation of {@link CursorStreamProviderFactory}
    *
    * @return a new {@link CursorStreamProviderFactory}
    */
-  CursorStreamProviderFactory getNullCursorStreamProviderFactory();
+  CursorStreamProviderFactory getNullCursorProviderFactory();
 
   /**
-   * @return The default implementation of {@Link CursorStreamProviderFactory}
+   * @return The default implementation of {@link CursorStreamProviderFactory}
    */
-  CursorStreamProviderFactory getDefaultCursorStreamProviderFactory();
+  CursorStreamProviderFactory getDefaultCursorProviderFactory();
 
   /**
    * @return statistics about the current byte streaming operations

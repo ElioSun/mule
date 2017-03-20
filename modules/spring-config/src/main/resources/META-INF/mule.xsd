@@ -5221,9 +5221,9 @@
         </xsd:complexContent>
     </xsd:complexType>
 
-    <!--=================-->
+    <!--===================-->
     <!-- Objects Streaming -->
-    <!--=================-->
+    <!--===================-->
 
     <xsd:element name="abstract-object-streaming-strategy" abstract="true">
         <xsd:annotation>
@@ -5246,12 +5246,31 @@
     <xsd:complexType name="repeatableInMemoryIterableType">
         <xsd:complexContent>
             <xsd:extension base="annotatedType">
-                <xsd:attribute name="maxInMemoryObjects" type="substitutableInt" use="optional" default="1000">
+                <xsd:attribute name="initialBufferSize" type="substitutableInt" use="optional" default="100">
+                    <xsd:annotation>
+                        <xsd:documentation>
+                            This is the amount of instances that will be initially be allowed to be kept in memory in order to
+                            consume the stream and provide random access to it. If the stream contains more data than can fit
+                            into this buffer, then it will be expanded according to the bufferSizeIncrement attribute, with an upper
+                            limit of maxInMemorySize. Default value is 100 instances.
+                        </xsd:documentation>
+                    </xsd:annotation>
+                </xsd:attribute>
+                <xsd:attribute name="bufferSizeIncrement" type="substitutableInt" use="optional" default="100">
+                    <xsd:annotation>
+                        <xsd:documentation>
+                            This is by how much will the buffer size by expanded if it exceeds its initial size. Setting a value of zero or
+                            lower will mean that the buffer should not expand, meaning that a STREAM_MAXIMUM_SIZE_EXCEEDED error will be raised
+                            when the buffer gets full. Default value is 100 instances.
+                        </xsd:documentation>
+                    </xsd:annotation>
+                </xsd:attribute>
+                <xsd:attribute name="maxInMemorySize" type="substitutableInt" use="optional" default="500">
                     <xsd:annotation>
                         <xsd:documentation>
                             This is the maximum amount of instances that will be kept in memory. If more than that are required,
                             then a STREAM_MAXIMUM_SIZE_EXCEEDED error will be raised. A value lower or equal to zero means no limit.
-                            Default value is 256 KB.
+                            Default value is 500 instances.
                         </xsd:documentation>
                     </xsd:annotation>
                 </xsd:attribute>

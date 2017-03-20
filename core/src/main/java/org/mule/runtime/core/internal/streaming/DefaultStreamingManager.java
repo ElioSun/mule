@@ -17,8 +17,10 @@ import org.mule.runtime.core.internal.streaming.bytes.ByteBufferManager;
 import org.mule.runtime.core.internal.streaming.bytes.ByteStreamingManagerAdapter;
 import org.mule.runtime.core.internal.streaming.bytes.DefaultByteStreamingManager;
 import org.mule.runtime.core.internal.streaming.bytes.PoolingByteBufferManager;
+import org.mule.runtime.core.internal.streaming.object.DefaultObjectStreamingManager;
 import org.mule.runtime.core.streaming.StreamingManager;
 import org.mule.runtime.core.streaming.bytes.ByteStreamingManager;
+import org.mule.runtime.core.streaming.objects.ObjectStreamingManager;
 
 import javax.inject.Inject;
 
@@ -36,6 +38,7 @@ public class DefaultStreamingManager implements StreamingManager, Initialisable,
 
   private ByteBufferManager bufferManager;
   private ByteStreamingManagerAdapter byteStreamingManager;
+  private ObjectStreamingManager objectStreamingManager;
   private boolean initialised = false;
 
   /**
@@ -46,12 +49,17 @@ public class DefaultStreamingManager implements StreamingManager, Initialisable,
     if (!initialised) {
       bufferManager = new PoolingByteBufferManager();
       byteStreamingManager = createByteStreamingManager();
+      objectStreamingManager = createObjectStreamingManager();
       initialised = true;
     }
   }
 
   protected ByteStreamingManagerAdapter createByteStreamingManager() {
     return new DefaultByteStreamingManager(bufferManager, schedulerService.ioScheduler(), muleContext);
+  }
+
+  protected ObjectStreamingManager createObjectStreamingManager() {
+    return new DefaultObjectStreamingManager();
   }
 
   /**
@@ -69,6 +77,14 @@ public class DefaultStreamingManager implements StreamingManager, Initialisable,
   @Override
   public ByteStreamingManager forBytes() {
     return byteStreamingManager;
+  }
+
+  /**
+   * {@inheritDoc}
+   */
+  @Override
+  public ObjectStreamingManager forObjects() {
+    return objectStreamingManager;
   }
 
   protected ByteBufferManager getBufferManager() {

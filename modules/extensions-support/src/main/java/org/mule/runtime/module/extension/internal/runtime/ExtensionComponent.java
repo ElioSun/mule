@@ -127,7 +127,7 @@ public abstract class ExtensionComponent<T extends ComponentModel<T>> extends Ab
   @Override
   public final void initialise() throws InitialisationException {
     if (cursorStreamProviderFactory == null) {
-      cursorStreamProviderFactory = streamingManager.forBytes().getDefaultCursorStreamProviderFactory();
+      cursorStreamProviderFactory = streamingManager.forBytes().getDefaultCursorProviderFactory();
     }
     withContextClassLoader(classLoader, () -> {
       validateConfigurationProviderIsNotExpression();
