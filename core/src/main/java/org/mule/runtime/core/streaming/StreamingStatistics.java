@@ -4,12 +4,17 @@
  * license, a copy of which has been included with this distribution in the
  * LICENSE.txt file.
  */
-package org.mule.runtime.core.streaming.objects;
+package org.mule.runtime.core.streaming;
 
 import org.mule.runtime.api.streaming.bytes.CursorStream;
 import org.mule.runtime.api.streaming.bytes.CursorStreamProvider;
 
-public interface ObjectStreamingStatistics {
+/**
+ * Statistics about current streaming assets
+ *
+ * @since 4.0
+ */
+public interface StreamingStatistics {
 
   /**
    * @return How many {@link CursorStreamProvider} instances are currently open

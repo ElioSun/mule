@@ -35,10 +35,4 @@ public interface ObjectStreamingManager {
    * @return The default implementation of {@Link CursorIteratorProviderFactory}
    */
   CursorIteratorProviderFactory getDefaultCursorProviderFactory();
-
-  /**
-   * @return statistics about the current byte streaming operations
-   */
-  ObjectStreamingStatistics getObjectStreamingStatistics();
-
 }

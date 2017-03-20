@@ -19,7 +19,6 @@ import org.mule.runtime.core.api.EventContext;
 import org.mule.runtime.core.api.MuleContext;
 import org.mule.runtime.core.internal.streaming.bytes.factory.InMemoryCursorStreamProviderFactory;
 import org.mule.runtime.core.internal.streaming.bytes.factory.NullCursorStreamProviderFactory;
-import org.mule.runtime.core.streaming.bytes.ByteStreamingStatistics;
 import org.mule.runtime.core.streaming.bytes.CursorStreamProviderFactory;
 import org.mule.runtime.core.streaming.bytes.InMemoryCursorStreamConfig;
 
@@ -54,7 +53,6 @@ public class DefaultByteStreamingManager implements ByteStreamingManagerAdapter,
             }
           });
 
-  private final DefaultByteStreamingStatistics statistics = new DefaultByteStreamingStatistics();
   private final ByteBufferManager bufferManager;
   private final Scheduler executorService;
   private final MuleContext muleContext;
@@ -97,17 +95,12 @@ public class DefaultByteStreamingManager implements ByteStreamingManagerAdapter,
     return new InMemoryCursorStreamProviderFactory(this, InMemoryCursorStreamConfig.getDefault(), bufferManager);
   }
 
-  @Override
-  public ByteStreamingStatistics getByteStreamingStatistics() {
-    return statistics;
-  }
-
   /**
    * {@inheritDoc}
    */
   @Override
   public void onOpen(CursorStreamProviderAdapter provider) {
-    registerEventContext(getRoot(provider.getCreatorEvent().getContext()));
+    registerEventContext(getRoot(provider.getRootEventContext().getContext()));
     registry.getUnchecked(getEventId(provider)).addProvider(provider);
     statistics.incrementOpenProviders();
   }
@@ -166,7 +159,7 @@ public class DefaultByteStreamingManager implements ByteStreamingManagerAdapter,
   }
 
   private String getEventId(CursorStreamProviderAdapter provider) {
-    return getEventId(provider.getCreatorEvent().getContext());
+    return getEventId(provider.getRootEventContext().getContext());
   }
 
   private String getEventId(EventContext eventContext) {

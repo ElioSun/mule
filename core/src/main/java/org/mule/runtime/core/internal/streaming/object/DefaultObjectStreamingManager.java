@@ -9,7 +9,6 @@ package org.mule.runtime.core.internal.streaming.object;
 import org.mule.runtime.core.streaming.objects.CursorIteratorProviderFactory;
 import org.mule.runtime.core.streaming.objects.InMemoryCursorIteratorConfig;
 import org.mule.runtime.core.streaming.objects.ObjectStreamingManager;
-import org.mule.runtime.core.streaming.objects.ObjectStreamingStatistics;
 
 public class DefaultObjectStreamingManager implements ObjectStreamingManager {
 
@@ -25,11 +24,6 @@ public class DefaultObjectStreamingManager implements ObjectStreamingManager {
 
   @Override
   public CursorIteratorProviderFactory getDefaultCursorProviderFactory() {
-    return null;
-  }
-
-  @Override
-  public ObjectStreamingStatistics getObjectStreamingStatistics() {
     return null;
   }
 }

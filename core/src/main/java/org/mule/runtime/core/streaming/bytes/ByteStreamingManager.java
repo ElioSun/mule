@@ -35,9 +35,4 @@ public interface ByteStreamingManager {
    * @return The default implementation of {@link CursorStreamProviderFactory}
    */
   CursorStreamProviderFactory getDefaultCursorProviderFactory();
-
-  /**
-   * @return statistics about the current byte streaming operations
-   */
-  ByteStreamingStatistics getByteStreamingStatistics();
 }

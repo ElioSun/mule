@@ -39,6 +39,7 @@ public class DefaultStreamingManager implements StreamingManager, Initialisable,
   private ByteBufferManager bufferManager;
   private ByteStreamingManagerAdapter byteStreamingManager;
   private ObjectStreamingManager objectStreamingManager;
+  private CursorManager cursorManager;
   private boolean initialised = false;
 
   /**
@@ -50,6 +51,7 @@ public class DefaultStreamingManager implements StreamingManager, Initialisable,
       bufferManager = new PoolingByteBufferManager();
       byteStreamingManager = createByteStreamingManager();
       objectStreamingManager = createObjectStreamingManager();
+      cursorManager = new CursorManager();
       initialised = true;
     }
   }
@@ -68,6 +70,7 @@ public class DefaultStreamingManager implements StreamingManager, Initialisable,
   @Override
   public void dispose() {
     disposeIfNeeded(byteStreamingManager, LOGGER);
+    disposeIfNeeded(objectStreamingManager, LOGGER);
     disposeIfNeeded(bufferManager, LOGGER);
   }
 
